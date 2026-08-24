@@ -51,7 +51,7 @@ export default async function handler(req, res) {
   // 2. If no relevant chunks found, return early
   if (relevantChunks.length === 0) {
     return res.status(200).json({
-      answer: "I could not find a clear answer to this in the provided sources. Please refer to a qualified Salafi scholar.",
+      answer: "I could not find a clear answer to this in the provided sources. Please refer to a qualified scholar.",
       sources: [],
       foundInSources: false,
     });
@@ -106,7 +106,7 @@ Answer:`;
 
     if (!rawAnswer) {
       return res.status(200).json({
-        answer: "I could not find a clear answer to this in the provided sources. Please refer to a qualified Salafi scholar.",
+        answer: "I could not find a clear answer to this in the provided sources. Please refer to a qualified scholar.",
         sources: [],
         foundInSources: false,
       });
