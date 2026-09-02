@@ -1,112 +1,306 @@
 /**
- * processPdf.js
- * 
- * Run this locally whenever you add a new PDF:
+ * Bayt al-Ilm PDF processor
+ *
+ * Usage:
  *   node scripts/processPdf.js "path/to/book.pdf" "Book Title"
- * 
- * It extracts text page by page, splits into chunks,
- * and appends them to data/chunks.json
- * 
- * Requirements: npm install pdfjs-dist
+ *
+ * Extracts PDF text page-by-page while preserving page numbers.
+ *
+ * Chunks are created around sentence/paragraph boundaries where possible,
+ * rather than blindly cutting every 600 characters.
  */
 
 const fs = require("fs");
 const path = require("path");
-
-// We use the legacy build of pdfjs which works in Node
 const pdfjsLib = require("pdfjs-dist");
 
-const CHUNKS_FILE = path.join(__dirname, "../data/chunks.json");
-const CHUNK_SIZE = 600;   // characters per chunk
-const CHUNK_OVERLAP = 100; // overlap between chunks
+const CHUNKS_FILE = path.join(
+  __dirname,
+  "../data/chunks.json"
+);
 
-async function extractPdf(pdfPath, bookTitle) {
-  const absolutePath = path.resolve(pdfPath);
-  console.log(`\nProcessing: ${absolutePath}`);
-  console.log(`Book title: ${bookTitle}`);
+const TARGET_CHARS = 1000;
+const MIN_CHARS = 250;
+const OVERLAP_CHARS = 150;
 
-  const data = new Uint8Array(fs.readFileSync(absolutePath));
-  const pdf = await pdfjsLib.getDocument({ data, useSystemFonts: true }).promise;
+function cleanText(text) {
+  return String(text || "")
+    .replace(/\u00ad/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
-  const totalPages = pdf.numPages;
-  console.log(`Total pages: ${totalPages}`);
+/**
+ * Attempt to split naturally.
+ */
+function splitIntoChunks(text) {
+  const clean = cleanText(text);
 
-  const allChunks = [];
+  if (!clean || clean.length < MIN_CHARS) {
+    return [];
+  }
 
-  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-    const page = await pdf.getPage(pageNum);
-    const textContent = await page.getTextContent();
-    const pageText = textContent.items
-      .map((item) => item.str)
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
+  /*
+   * Prefer paragraph/sentence boundaries.
+   */
+  const sentences = clean
+    .split(/(?<=[.!?؟۔])\s+/)
+    .filter(Boolean);
 
-    if (!pageText || pageText.length < 20) continue;
+  const chunks = [];
 
-    // Split page text into overlapping chunks
-    let start = 0;
-    while (start < pageText.length) {
-      const end = Math.min(start + CHUNK_SIZE, pageText.length);
-      const chunkText = pageText.slice(start, end).trim();
+  let current = "";
 
-      if (chunkText.length > 50) {
-        allChunks.push({
-          book: bookTitle,
-          page: pageNum,
-          text: chunkText,
-        });
-      }
-
-      if (end === pageText.length) break;
-      start += CHUNK_SIZE - CHUNK_OVERLAP;
+  for (const sentence of sentences) {
+    /*
+     * If adding another sentence keeps the chunk reasonably sized,
+     * keep building it.
+     */
+    if (
+      current.length === 0 ||
+      current.length + sentence.length + 1 <= TARGET_CHARS
+    ) {
+      current +=
+        (current ? " " : "") + sentence;
+      continue;
     }
 
-    if (pageNum % 20 === 0) {
-      process.stdout.write(`  Processed ${pageNum}/${totalPages} pages...\r`);
+    if (current.length >= MIN_CHARS) {
+      chunks.push(current.trim());
+    }
+
+    /*
+     * Small overlap to avoid losing context between chunks.
+     */
+    const overlap =
+      current.length > OVERLAP_CHARS
+        ? current.slice(-OVERLAP_CHARS)
+        : current;
+
+    current =
+      overlap.trim() +
+      " " +
+      sentence;
+  }
+
+  if (current.trim().length >= MIN_CHARS) {
+    chunks.push(current.trim());
+  }
+
+  /*
+   * Some PDFs have terrible punctuation extraction.
+   * Fall back to character-based chunks for unusually long
+   * unbroken text.
+   */
+  if (chunks.length === 0 && clean.length >= MIN_CHARS) {
+    let start = 0;
+
+    while (start < clean.length) {
+      const end = Math.min(
+        start + TARGET_CHARS,
+        clean.length
+      );
+
+      const piece = clean
+        .slice(start, end)
+        .trim();
+
+      if (piece.length >= MIN_CHARS) {
+        chunks.push(piece);
+      }
+
+      if (end === clean.length) break;
+
+      start +=
+        TARGET_CHARS - OVERLAP_CHARS;
     }
   }
 
-  console.log(`\nExtracted ${allChunks.length} chunks from ${totalPages} pages.`);
+  return chunks;
+}
+
+async function extractPdf(
+  pdfPath,
+  bookTitle
+) {
+  const absolutePath =
+    path.resolve(pdfPath);
+
+  console.log(
+    `\nProcessing: ${absolutePath}`
+  );
+
+  console.log(
+    `Book title: ${bookTitle}`
+  );
+
+  const data = new Uint8Array(
+    fs.readFileSync(absolutePath)
+  );
+
+  const pdf =
+    await pdfjsLib
+      .getDocument({
+        data,
+        useSystemFonts: true
+      })
+      .promise;
+
+  const totalPages = pdf.numPages;
+
+  console.log(
+    `Total pages: ${totalPages}`
+  );
+
+  const allChunks = [];
+
+  for (
+    let pageNum = 1;
+    pageNum <= totalPages;
+    pageNum++
+  ) {
+    const page =
+      await pdf.getPage(pageNum);
+
+    const textContent =
+      await page.getTextContent();
+
+    const pageText =
+      textContent.items
+        .map((item) => item.str)
+        .join(" ");
+
+    const cleanPageText =
+      cleanText(pageText);
+
+    if (
+      !cleanPageText ||
+      cleanPageText.length < MIN_CHARS
+    ) {
+      continue;
+    }
+
+    const pageChunks =
+      splitIntoChunks(cleanPageText);
+
+    for (
+      let chunkIndex = 0;
+      chunkIndex < pageChunks.length;
+      chunkIndex++
+    ) {
+      allChunks.push({
+        book: bookTitle,
+        page: pageNum,
+        chunk: chunkIndex + 1,
+        text: pageChunks[chunkIndex]
+      });
+    }
+
+    if (pageNum % 20 === 0) {
+      process.stdout.write(
+        `  Processed ${pageNum}/${totalPages} pages...\r`
+      );
+    }
+  }
+
+  console.log(
+    `\nExtracted ${allChunks.length} chunks from ${totalPages} pages.`
+  );
+
   return allChunks;
 }
 
 function saveChunks(newChunks) {
   let existing = [];
-  if (fs.existsSync(CHUNKS_FILE)) {
+
+  if (
+    fs.existsSync(CHUNKS_FILE)
+  ) {
     try {
-      existing = JSON.parse(fs.readFileSync(CHUNKS_FILE, "utf-8"));
+      existing = JSON.parse(
+        fs.readFileSync(
+          CHUNKS_FILE,
+          "utf-8"
+        )
+      );
     } catch {
+      console.warn(
+        "Could not read existing chunks.json. Starting fresh."
+      );
+
       existing = [];
     }
   }
 
-  const combined = [...existing, ...newChunks];
-  fs.writeFileSync(CHUNKS_FILE, JSON.stringify(combined, null, 2), "utf-8");
-  console.log(`Saved. Total chunks in database: ${combined.length}`);
+  const combined = [
+    ...existing,
+    ...newChunks
+  ];
+
+  fs.writeFileSync(
+    CHUNKS_FILE,
+    JSON.stringify(
+      combined,
+      null,
+      2
+    ),
+    "utf-8"
+  );
+
+  console.log(
+    `Saved. Total chunks in database: ${combined.length}`
+  );
 }
 
 async function main() {
-  const args = process.argv.slice(2);
+  const args =
+    process.argv.slice(2);
+
   if (args.length < 2) {
-    console.error("Usage: node scripts/processPdf.js <path-to-pdf> <Book Title>");
-    console.error('Example: node scripts/processPdf.js ./books/fiqh.pdf "Fiqh al-Sunnah"');
+    console.error(
+      "Usage: node scripts/processPdf.js <path-to-pdf> <Book Title>"
+    );
+
+    console.error(
+      'Example: node scripts/processPdf.js ./books/fiqh.pdf "Fiqh al-Sunnah"'
+    );
+
     process.exit(1);
   }
 
-  const [pdfPath, bookTitle] = args;
+  const [
+    pdfPath,
+    bookTitle
+  ] = args;
 
   if (!fs.existsSync(pdfPath)) {
-    console.error(`File not found: ${pdfPath}`);
+    console.error(
+      `File not found: ${pdfPath}`
+    );
+
     process.exit(1);
   }
 
-  const chunks = await extractPdf(pdfPath, bookTitle);
-  saveChunks(chunks);
-  console.log("\nDone! Now commit data/chunks.json and redeploy.");
+  const extractedChunks =
+    await extractPdf(
+      pdfPath,
+      bookTitle
+    );
+
+  saveChunks(
+    extractedChunks
+  );
+
+  console.log(
+    "\nDone! Commit data/chunks.json and redeploy."
+  );
 }
 
-main().catch((err) => {
-  console.error("Error:", err.message);
+main().catch((error) => {
+  console.error(
+    "Error:",
+    error.message
+  );
+
   process.exit(1);
 });
