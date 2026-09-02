@@ -8,14 +8,13 @@ export default function Footer() {
         <p className="font-amiri text-lg mb-6" style={{ color: "#c9973a" }}>بيت العلم</p>
         <div className="h-px max-w-xs mx-auto mb-6" style={{ backgroundColor: "#2a2010" }}></div>
         <p className="text-sm leading-relaxed max-w-lg mx-auto mb-6" style={{ color: "#7a6a4a" }}>
-          Developed by Akhi Abu Maryam — may Allah forgive him, guide him, and have mercy on him
-          and on his parents — to help you easily access and find fatawa of the scholars from
-          reliable sources.
+          Developed by Akhi ibn Asiyah — may Allah forgive him, guide him, and have mercy upon him, his parents, his grandparents, his uncles, his aunts, and every member of his family; those who came before him, those living with him, and those who will come after him. May Allah forgive them all, have mercy upon them, bless them, and be pleased with them. This was made to help you easily access and find the fatawa of the scholars from reliable sources.
+
         </p>
-        <a href="https://www.instagram.com/deen.salihx/" target="_blank" rel="noopener noreferrer"
+        <a href="https://www.instagram.com/unknownakh1x" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm font-medium transition hover:opacity-70"
           style={{ color: "#c9973a" }}>
-          Abu Maryam's Instagram
+          ibn Asiyah's Instagram
         </a>
         <p className="mt-8 font-amiri text-sm" style={{ color: "#2a2010" }}>
           طلب العلم فريضة على كل مسلم
