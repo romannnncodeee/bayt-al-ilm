@@ -1,7 +1,6 @@
 /**
  * Keyword search with Islamic synonym expansion.
- * Handles common Arabic/English term variations so questions
- * like "nawaqid al islam" also match "nullifiers of Islam".
+ * Accepts a long query string (original + expanded terms from AI).
  */
 
 const STOP_WORDS = new Set([
@@ -13,87 +12,70 @@ const STOP_WORDS = new Set([
   "al","ibn","abu","bint","bin",
 ]);
 
-// Islamic synonym map — expands query terms to catch more matches
+// Static synonym map as fallback when AI expansion fails
 const SYNONYMS = {
-  // Aqidah / Attributes of Allah
-  "nawaqid":        ["nullifiers", "invalidators", "nullify", "violates", "breaks"],
-  "nullifiers":     ["nawaqid", "invalidators", "violates", "breaks"],
-  "hand":           ["yad", "hands", "attribute", "sifa"],
-  "yad":            ["hand", "hands"],
-  "face":           ["wajh", "countenance"],
-  "wajh":           ["face", "countenance"],
-  "istiwa":         ["rose", "ascend", "above", "throne", "arsh", "settled"],
-  "throne":         ["arsh", "istiwa", "above"],
-  "arsh":           ["throne", "istiwa"],
-  "attributes":     ["sifat", "names", "asma", "attribute", "sifa"],
-  "sifat":          ["attributes", "attribute", "names", "sifa"],
-  "tawhid":         ["monotheism", "oneness", "unity", "tawheed"],
-  "tawheed":        ["tawhid", "monotheism", "oneness"],
-  "shirk":          ["polytheism", "associating", "partners", "association"],
-  "kufr":           ["disbelief", "kafir", "apostasy", "unbelief"],
-  "iman":           ["faith", "belief", "eeman", "imaan"],
-  "eeman":          ["iman", "faith", "belief"],
-  "qadr":           ["decree", "predestination", "destiny", "qadar"],
-  "qadar":          ["qadr", "decree", "predestination"],
-
-  // Fiqh — Prayer
-  "salah":          ["prayer", "salat", "salaah", "namaz", "pray"],
-  "salat":          ["salah", "prayer", "salaah", "pray"],
-  "prayer":         ["salah", "salat", "pray", "salaah"],
-  "wudu":           ["ablution", "purification", "wudhu", "wudoo"],
-  "wudhu":          ["wudu", "ablution", "purification"],
-  "ablution":       ["wudu", "wudhu", "purification"],
-  "tayammum":       ["dry ablution", "sand", "purification"],
-  "ghusl":          ["bath", "ritual bath", "janabah", "purification"],
-  "adhan":          ["call to prayer", "azan", "athan"],
-  "iqamah":         ["iqama", "second call", "prayer called"],
-  "rukn":           ["pillar", "pillars", "arkaan", "condition"],
-  "sujud":          ["prostration", "sajdah", "sajda"],
-  "ruku":           ["bowing", "bow"],
-
-  // Fiqh — Fasting
-  "sawm":           ["fasting", "fast", "siyam", "ramadan"],
-  "siyam":          ["sawm", "fasting", "fast"],
-  "fasting":        ["sawm", "siyam", "fast", "ramadan"],
-  "ramadan":        ["fasting", "sawm", "siyam", "month"],
-  "iftar":          ["break fast", "breaking fast", "sunset"],
-  "suhoor":         ["suhur", "predawn meal", "before fajr"],
-
-  // Fiqh — Zakat
-  "zakat":          ["zakah", "charity", "nisab", "obligatory", "purification"],
-  "zakah":          ["zakat", "charity", "nisab"],
-  "nisab":          ["threshold", "minimum", "amount", "zakat", "gold", "silver"],
-
-  // Fiqh — Hajj
-  "hajj":           ["pilgrimage", "makkah", "kaaba", "umrah"],
-  "umrah":          ["hajj", "pilgrimage", "makkah"],
-
-  // General Islamic terms
-  "sunnah":         ["hadith", "prophetic", "tradition", "prophet"],
-  "hadith":         ["sunnah", "narration", "reported", "prophet said"],
-  "bidah":          ["innovation", "bid'ah", "newly invented"],
-  "halal":          ["permissible", "allowed", "lawful"],
-  "haram":          ["forbidden", "prohibited", "impermissible", "unlawful"],
-  "makruh":         ["disliked", "discouraged"],
-  "fard":           ["obligatory", "wajib", "compulsory", "duty"],
-  "wajib":          ["obligatory", "fard", "compulsory"],
-  "mustahabb":      ["recommended", "sunnah", "preferred"],
-  "mubah":          ["permissible", "allowed", "neutral"],
-  "tawbah":         ["repentance", "repent", "return to allah"],
-  "repentance":     ["tawbah", "repent", "forgiveness"],
-  "dua":            ["supplication", "prayer", "invocation", "asking allah"],
-  "supplication":   ["dua", "invocation", "asking allah"],
-  "dhikr":          ["remembrance", "mention", "glorification"],
-  "quran":          ["quran", "quraan", "koran", "book of allah", "revelation"],
+  "nawaqid":    ["nullifiers","invalidators","nullify","violates","breaks","apostasy"],
+  "nullifiers": ["nawaqid","invalidators","violates","breaks"],
+  "hand":       ["yad","hands","attribute","sifa"],
+  "yad":        ["hand","hands"],
+  "face":       ["wajh","countenance"],
+  "wajh":       ["face","countenance"],
+  "istiwa":     ["rose","ascend","above","throne","arsh","settled","istawaa"],
+  "uluw":       ["above","high","highness","transcendence","throne","heaven","sky"],
+  "throne":     ["arsh","istiwa","above","uluw"],
+  "arsh":       ["throne","istiwa","above"],
+  "where":      ["uluw","above","throne","arsh","istiwa","heaven","sky","highness"],
+  "attributes": ["sifat","names","asma","attribute","sifa"],
+  "sifat":      ["attributes","attribute","names","sifa"],
+  "tawhid":     ["monotheism","oneness","unity","tawheed"],
+  "tawheed":    ["tawhid","monotheism","oneness"],
+  "shirk":      ["polytheism","associating","partners","association"],
+  "kufr":       ["disbelief","kafir","apostasy","unbelief"],
+  "iman":       ["faith","belief","eeman","imaan"],
+  "eeman":      ["iman","faith","belief"],
+  "qadr":       ["decree","predestination","destiny","qadar"],
+  "qadar":      ["qadr","decree","predestination"],
+  "salah":      ["prayer","salat","salaah","namaz","pray"],
+  "salat":      ["salah","prayer","salaah","pray"],
+  "prayer":     ["salah","salat","pray","salaah"],
+  "wudu":       ["ablution","purification","wudhu","wudoo"],
+  "wudhu":      ["wudu","ablution","purification"],
+  "ablution":   ["wudu","wudhu","purification"],
+  "tayammum":   ["dry ablution","sand","purification"],
+  "ghusl":      ["bath","ritual bath","janabah","purification"],
+  "adhan":      ["call to prayer","azan","athan"],
+  "sawm":       ["fasting","fast","siyam","ramadan"],
+  "siyam":      ["sawm","fasting","fast"],
+  "fasting":    ["sawm","siyam","fast","ramadan"],
+  "ramadan":    ["fasting","sawm","siyam","month"],
+  "zakat":      ["zakah","charity","nisab","obligatory"],
+  "zakah":      ["zakat","charity","nisab"],
+  "nisab":      ["threshold","minimum","amount","zakat","gold","silver"],
+  "hajj":       ["pilgrimage","makkah","kaaba","umrah"],
+  "umrah":      ["hajj","pilgrimage","makkah"],
+  "sunnah":     ["hadith","prophetic","tradition","prophet"],
+  "hadith":     ["sunnah","narration","reported","prophet said"],
+  "bidah":      ["innovation","bid'ah","newly invented"],
+  "halal":      ["permissible","allowed","lawful"],
+  "haram":      ["forbidden","prohibited","impermissible","unlawful"],
+  "fard":       ["obligatory","wajib","compulsory","duty"],
+  "wajib":      ["obligatory","fard","compulsory"],
+  "tawbah":     ["repentance","repent","return to allah"],
+  "repentance": ["tawbah","repent","forgiveness"],
+  "dua":        ["supplication","prayer","invocation","asking allah"],
+  "dhikr":      ["remembrance","mention","glorification"],
+  "sihr":       ["magic","sorcery","witchcraft","magician","kufr"],
+  "magic":      ["sihr","sorcery","witchcraft","magician"],
+  "riba":       ["usury","interest","loan","bank"],
+  "usury":      ["riba","interest","forbidden"],
 };
 
-function expandQuery(tokens) {
+function expandWithSynonyms(tokens) {
   const expanded = new Set(tokens);
   for (const token of tokens) {
     const syns = SYNONYMS[token];
     if (syns) {
       for (const s of syns) {
-        // add individual words from multi-word synonyms
         s.split(" ").forEach((w) => { if (w.length > 2) expanded.add(w); });
       }
     }
@@ -119,7 +101,7 @@ function scoreChunk(chunk, queryTokens) {
       const freq = chunkTokens.filter((t) => t === token).length;
       score += 1 + Math.log(freq + 1);
     }
-    // Partial match
+    // Partial match bonus
     for (const ct of chunkSet) {
       if (ct.includes(token) && ct !== token && token.length > 3) {
         score += 0.4;
@@ -131,8 +113,8 @@ function scoreChunk(chunk, queryTokens) {
 }
 
 /**
- * Returns the top N most relevant chunks for a query,
- * with Islamic synonym expansion.
+ * Returns the top N most relevant chunks.
+ * Accepts a full expanded query string (original + AI-generated terms).
  */
 export function searchChunks(chunks, query, topN = 8) {
   if (!chunks || chunks.length === 0) return [];
@@ -140,8 +122,8 @@ export function searchChunks(chunks, query, topN = 8) {
   const baseTokens = tokenize(query);
   if (baseTokens.length === 0) return [];
 
-  // Expand with synonyms
-  const expandedTokens = expandQuery(baseTokens);
+  // Apply static synonym expansion as additional fallback
+  const expandedTokens = expandWithSynonyms(baseTokens);
 
   const scored = chunks
     .map((chunk) => ({ chunk, score: scoreChunk(chunk, expandedTokens) }))
