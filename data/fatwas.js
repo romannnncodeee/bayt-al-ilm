@@ -77,11 +77,74 @@ Shaykh al-Islam Ibn Taymiyah (may Allah have mercy on him) said:
 
 "This hadith indicates that the soul will remain after it departs the body, contrary to the misguided teachings of the mutakallimin; and that it will ascend and descend; and that it will be returned to the body; and that the deceased will be questioned, then he will be subjected to bliss or punishment." (Majmu' al-Fatawa, 4/292)
 
+Full Hadith: It was narrated that al-Bara’ ibn ‘Aazib said: “We went out with the Messenger of Allaah (peace and blessings of Allaah be upon him) for the funeral of a man from among the Ansaar. We came to the grave and when (the deceased) was placed in the lahd, the Messenger of Allaah (peace and blessings of Allaah be upon him) sat down and we sat around him, as if there were birds on our heads (i.e., quiet and still). In his hand he had a stick with which he was scratching the ground. Then he raised his head and said, “Seek refuge with Allaah from the torment of the grave”, two or three times. Then he said, “When the believing slave is about to depart this world and enter the Hereafter, there come down to him from heaven angels with white faces like the sun, and they sit around him as far as the eye can see. They bring with them shrouds from Paradise and perfumes from Paradise. Then the Angel of Death comes and sits by his head, and he says, ‘O good soul, come forth to forgiveness from Allaah and His pleasure.’ Then it comes out easily like a drop of water from the mouth of a waterskin. When he seizes it, they do not leave it in his hand for an instant before they take it and put it in that shroud with that perfume, and there comes from it a fragrance like the finest musk on the face of the earth. Then they ascend and they do not pass by any group of angels but they say, ‘Who is this good soul?’ and they say, ‘It is So and so the son of So and so, calling him by the best names by which he was known in this world, until they reach the lowest heaven. They ask for it to be opened to them and it is opened, and (the soul) is welcomed and accompanied to the next heaven by those who are closest to Allaah, until they reach the seventh heaven. Then Allaah says: ‘Record the book of My slave in ‘Illiyoon in the seventh heaven, and return him to the earth, for from it I created them, to it I will return them and from it I will bring them forth once again.’ So his soul is returned to his body and there come to him two angels who make him sit up and they say to him, ‘Who is your Lord?’ He says, ‘Allaah.’ They say, ‘What is your religion?’ He says, ‘My religion is Islam.’ They say, ‘Who is this man who was sent among you?’ He says, ‘He is the Messenger of Allaah (peace and blessings of Allaah be upon him).’ They say, ‘What did you do?’ He says, ‘I read the Book of Allaah and I believed in it.’ Then a voice calls out from heaven, ‘My slave has spoken the truth, so prepare for him a bed from Paradise and clothe him from Paradise, and open for him a gate to Paradise.’ Then there comes to him some of its fragrance, and his grave is made wide, as far as he can see. Then there comes to him a man with a handsome face and handsome clothes, and a good fragrance, who says, ‘Receive the glad tidings that will bring you joy this day.’ He says, ‘Who are you? Your face is a face which brings glad tidings.’ He says, ‘I am your righteous deeds.’ He says, ‘O Lord, hasten the Hour so that I may return to my family and my wealth.’…” 
+
+Narrated by Ahmad, 17803; Abu Dawood, 4753. Classed as saheeh by al-Albaani in Ahkaam al-Janaa’iz, p. 156 
+
+Ahmad (10577) narrated that Abu Sa’eed al-Khudri said: I attended a funeral with the Messenger of Allaah (peace and blessings of Allaah be upon him). The Messenger of Allaah (peace and blessings of Allaah be upon him) said: “O people, this ummah will be tested in their graves. When a man is buried and his friends leave him, an angel with a hammer in his hand comes and sits by him and asks, ‘What do you say about this man?’ If he is a believer, he says, ‘I bear witness that there is no god but Allaah and that Muhammad is His slave and Messenger.’ He says, ‘You have spoken the truth.’ Then a door to Hell is opened for him and he says, ‘This would have been your place if you had disbelieved in your Lord, but because you believed, this is your place.’ Then a door to Paradise is opened for him and he wants to go there, but the angel says to him, ‘Calm down,’ and his grave is made wide and spacious for him. But if he is a kaafir or a hypocrite, (the angel) says to him, ‘What do you say about this man?’ He says, ‘I do not know, I heard the people saying something.’ The angel says, ‘You did not know and you did not follow those who knew and you were not guided.’ Then a door to Paradise is opened for him and he says, ‘This would have been your position if you had believed in your Lord. But because you disbelieved, Allaah has replaced it for you with this.’ Then a gate to Hell is opened for him, and he strikes him a blow with the hammer which is heard by all of Allaah’s creation apart from the two races (of mankind and the jinn).” Some of the people said, “O Messenger of Allaah, there is no one who would have an angel standing by him holding a hammer but he would dumbfounded.” The Messenger of Allaah (peace and blessings of Allaah be upon him) said: “Allaah will keep firm those who believe, with the word that stands firm.” [Ibraaheem 14:27 – interpretation of the meaning]
+
+Classed as saheeh by al-Albaani in his commentary on Kitaab al-Sunnah by Ibn Abi ‘Aasim, 865 
+
+It was narrated that Abu Hurayrah said: The Messenger of Allaah (peace and blessings of Allaah be upon him) said: “When the deceased (or he said: any one of you) is buried, two black and blue angels, one of whom is called Munkar and the other Nakeer come to him. They say, ‘What did you say about this man?’ And he says what he used to say, that he is the slave of Allaah and His Messenger, ‘I bear witness that there is no god but Allaah and that Muhammad is His slave and Messenger.’ They say, ‘We knew that you would say this.’ Then his grave is expanded, seventy cubits wide, and it is filled with light. He says, ‘Let me go back to my family and tell them.’ They say, ‘Sleep like a bridegroom whom no one will wake but his most beloved,’ until Allaah raises him up. But if he was a hypocrite he says, ‘I heard the people saying something and I said likewise, I do not know.’ So they say, ‘We knew that you would say that.’ Then it is said to the earth, ‘Squeeze him,’ so it squeezes him until his ribs interlock. And he will remain like that, being tormented, until Allaah raises him up.” 
+
+Narrated by al-Tirmidhi, 1071. Classed as saheeh by Shaykh al-Albaani in al-Silsilah al-Saheehah, 1391. 
+
 Shaykh Ibn 'Uthaymin (may Allah have mercy on him) said:
 
 "It is proven from the Messenger of Allah (blessings and peace of Allah be upon him) that when a person dies, his soul is returned to him in his grave, and he is questioned about his Lord, his religion and his Prophet."
 
-(Fatawa Nur 'ala ad-Darb by al-'Uthaymin, 4/2)`,
+(Fatawa Nur 'ala ad-Darb by al-'Uthaymin, 4/2)
+
+
+
+Does the torment of the grave befall both the soul and the body?
+
+
+
+Shaykh Al-Islam Ibn Taymiyah (may Allah have mercy on him) said: 
+
+
+
+“The view of the earliest generations of this Ummah and its Imams is that the torment or blessing (of the grave) happens to the soul of the deceased and his body. After it departs from the body, the soul continues to be blessed or punished, and it is also connected to the body from time to time, so that the blessing or torment befalls the body as well as the soul. Therefore, we must believe in that which Allah has told us.” (Al-Ikhtiyarat Al-Fiqhiyyah, p. 94) 
+
+
+
+Ibn Al-Qayyim (may Allah have mercy on him) said: 
+
+
+
+“Shaykh Al-Islam (Ibn Taymiyah) was asked about this matter, and we will quote his reply in full: 
+
+
+
+“Indeed, the torment and blessing happen to both the soul and the body, according to the consensus of the Ahl As-Sunnah wal-Jama’ah. The soul is blessed or tormented separately from the body, and it is blessed or tormented in connection with the body. The body is connected to it, so in this case the blessing or torment happens to them both, and it may happen to the soul separately from the body. 
+
+
+
+The view of the Salaf and Imams of this Ummah is that when a person dies, he will be in a state of blessing or torment, and that happens to his soul and his body. After the soul has departed from the body, it remains in a state of blessing or torment, and that is sometimes connected to the body and the blessing or torment happens to them both. Then when the Day of Resurrection comes, the souls will be returned to their bodies and they will rise from their graves to meet the Lord of the Worlds. The physical resurrection is a matter upon which the Muslims, Jews and Christians are agreed.”  (Al-Ruh, p. 51, 52) 
+
+The scholars likened that to dreams when one is asleep, for a person may dream that he is going and traveling, and he may feel happiness or grief and sorrow while he is sleeping, and that is when he is in his place and in this world. So it is more apt that things should be different in the life of Al-barzakh which is completely different from the life of this world and the life of the Hereafter. 
+
+
+Al-Nawawi (may Allah have mercy on him) said: 
+
+“If it is said, we see the deceased and how he is in his grave, so how can he be questioned, made to sit up and beaten with iron rods, when no mark is left on him? The answer is that this is not impossible, and indeed there is a similar case in our regular lives, that of the sleeper who feels joy or pain of which we feel nothing.  A person who is awake may also feel joy or pain because of something he hears or thinks about, and those who are sitting with him feel nothing of that. Similarly, Jibril used to come to the Prophet (peace and blessings of Allah be upon him) and tell him of the Revelation, and the people present were unaware of it. All of that is clear and evident.” (Sharh Muslim, 17/201) 
+
+Shaykh Al-Islam Ibn Taymiyah (may Allah have mercy on him) said: 
+
+“When a person sleeps, he may feel joy or pain, and that happens to his soul and his body. He may dream that someone is beating him and wake up with pain in his body, or he may dream that he is being fed some good food, then wake up with the taste of food in his mouth. This is something that really happens. If the body and soul of a sleeping person can experience joy and pain that are not felt by the person next to him, and a sleeper may even cry out because of the intensity of pain or fear of what is happening to him, and those who are awake can hear him, and he may speak, reciting Quran or dhikr, or talking to someone, and those who are awake can hear that, even though he is asleep with his eyes closed, and he does not hear them if they speak to him – then how can we deny that the one who is buried in his grave also feels things, when the Messenger (peace and blessings of Allah be upon him) has told us that he “hears the sound of their footsteps” and “You do not hear what I say any better than they do”? 
+
+The heart is akin to the grave, hence the Prophet (peace and blessings of Allah be upon him) said, when he missed ‘Asr on the day of Al-Khandaq: “May Allah fill their hearts and graves with fire.” Moreover, Allah differentiated between them (graves and hearts) in the verse (interpretation of the meaning): 
+
+“Knows he not that when the contents of the graves are poured forth (all mankind is resurrected)?
+
+And that which is in the hearts (of men) shall be made known?” [Al-‘Aadiyat 100:9-10]
+
+This is just to explain that this could happen.
+
+We cannot say that the blessing or torment that the dead experience is like that which a sleeper experiences when he dreams, rather that blessing or torment is more complete and more far-reaching; it is a real blessing and a real torment. Yet, this example is given to show that this is possible. If someone were to say that the dead person does not move in his grave, and the soil does not change, and so on, this matter may be explained in more detail, but that would take too long to explain here. And Allah knows best. May Allah bless our Prophet Muhammad and his family and companions.” (Majmu’ Al-Fatawa, 4/275, 276) 
+
+`,
     category: "General",
     date: "March 12, 2026",
   },
